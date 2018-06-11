@@ -7,6 +7,25 @@
   
   <script type="text/javascript">
   ShopifyApp.ready(function(){
+    
+    ShopifyApp.ready(function(){
+    var shopifyQL = "SHOW count() FROM visits SINCE -2w UNTIL today";
+    var renderData = function(response) {
+      // do amazing things here
+      $('#shopifyQl-message-container').text("Success: " + response);
+    };
+    var handleError = function(response) {
+      // handle missing API errors here (missing scopes, back shopifyql, etc...)
+      $('#shopifyQl-message-container').text("Error: " + response);
+    };
+    ShopifyApp.Analytics.fetch({
+      query: shopifyQL,
+      success: renderData,
+      error: handleError
+    });
+  });
+    
+    
     var new_value_count = 0;
     $('#live_view_updater').on('click', function(){
       if ($('#live_view_field_updater').val() !== '') {
@@ -77,6 +96,8 @@
     </div>
   </div>
 </div>
+
+<div id="shopifyQl-message-container"></p>
 
 <div class="Polaris-FooterHelp">
   <div class="Polaris-FooterHelp__Content">
