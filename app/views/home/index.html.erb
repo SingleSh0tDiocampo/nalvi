@@ -130,3 +130,14 @@
   <p>This app has not created any webhooks for this Shop. Add webhooks to your ShopifyApp initializer if you need webhooks</p>
 <% end %>
 <% end %>
+
+      <script src="https://cdn.shopify.com/s/assets/external/app.js?<%= Time.now.strftime('%Y%m%d%H') %>"></script>
+
+    <script type="text/javascript">
+      ShopifyApp.init({
+        apiKey: "<%= ShopifyApp.configuration.api_key %>",
+        shopOrigin: "<%= "https://#{ @shop_session.url }" if @shop_session %>",
+        debug: <%= Rails.env.development? ? 'true' : 'false' %>,
+        forceRedirect: true
+      });
+    </script>
