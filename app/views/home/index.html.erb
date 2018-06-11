@@ -10,7 +10,7 @@
     var new_value_count = 0;
     $('#live_view_updater').on('click', function(){
       if ($('#live_view_field_updater').val() !== '') {
-        $('#live_view_updater').text("Updating...");
+        $('#live_view_updater span').text("Updating...");
         new_value_count = $('#live_view_field_updater').val();
         $(document).ajaxStop(function(){
           $.ajax({
@@ -22,7 +22,7 @@
             success: function (data, textStatus, jqXHR) {
               $('#live_view_field_updater').val("");
               alert("Successfully updated! Visitor count is now: " + new_value_count + "!");
-              $('#live_view_updater').text("Update");
+              $('#live_view_updater span').text("Update");
               new_value_count = 0;
             }
           });
@@ -30,14 +30,55 @@
       } else { alert("Please enter a value first!");}
     });
   });
+  
+  $( document ).ajaxError(function() {
+  alert("Error!");
+});
   </script>
 <% end %>
 
-  <div>
-    <p>Enter the new value here:</p>
-    <input type="number" id="live_view_field_updater" placeholder="Enter any number" style="margin-top: 10px;"/>
-    <button id="live_view_updater" style="border: 0 !important;">Update</button>
+<div class="Polaris-Page">
+  <div class="Polaris-Page__Header Polaris-Page__Header--hasSeparator">
+    <div class="Polaris-Page__Title">
+      <h1 class="Polaris-DisplayText Polaris-DisplayText--sizeLarge">Settings</h1>
+    </div>
+    <div class="Polaris-Page__Actions"></div>
   </div>
+  <div class="Polaris-Page__Content">
+    <div class="Polaris-Layout">
+      <div class="Polaris-Layout__AnnotatedSection">
+        <div class="Polaris-Layout__AnnotationWrapper">
+          <div class="Polaris-Layout__Annotation">
+            <div class="Polaris-TextContainer">
+              <h2 class="Polaris-Heading">Live Shopper View Count</h2><span class="Polaris-TextStyle--variationSubdued"></span></div>
+          </div>
+          <div class="Polaris-Layout__AnnotationContent">
+            <div class="">
+              <div class="Polaris-Labelled__LabelWrapper">
+                <div class="Polaris-Label"><label id="TextField35Label" for="TextField35" class="Polaris-Label__Text">Please enter new number</label></div>
+              </div>
+              <div class="Polaris-TextField"><input id="live_view_field_updater" placeholder="Enter any number" class="Polaris-TextField__Input" aria-labelledby="TextField35Label" aria-invalid="false" value="">
+                <div class="Polaris-TextField__Backdrop"></div>
+              </div>       
+              <div class="Polaris-Labelled__LabelWrapper"style="margin-top: 8px;">
+                <button type="button" id="live_view_updater" class="Polaris-Button Polaris-Button--primary"><span class="Polaris-Button__Content"><span>Update</span></span></button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="Polaris-FooterHelp">
+  <div class="Polaris-FooterHelp__Content">
+    <div class="Polaris-FooterHelp__Icon"><span class="Polaris-Icon Polaris-Icon--colorTeal Polaris-Icon--isColored Polaris-Icon--hasBackdrop"><svg class="Polaris-Icon__Svg" viewBox="0 0 20 20" focusable="false" aria-hidden="true"><circle cx="10" cy="10" r="9" fill="currentColor"></circle><path d="M10 0C4.486 0 0 4.486 0 10s4.486 10 10 10 10-4.486 10-10S15.514 0 10 0m0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8m0-4a1 1 0 1 0 0 2 1 1 0 1 0 0-2m0-10C8.346 4 7 5.346 7 7a1 1 0 1 0 2 0 1.001 1.001 0 1 1 1.591.808C9.58 8.548 9 9.616 9 10.737V11a1 1 0 1 0 2 0v-.263c0-.653.484-1.105.773-1.317A3.013 3.013 0 0 0 13 7c0-1.654-1.346-3-3-3"></path></svg></span></div>
+    <div
+         class="Polaris-FooterHelp__Text">Need help? <a class="Polaris-Link" href="https://singlesh0tdiocampo.com" data-polaris-unstyled="true">Contact me</a>.</div>
+  </div>
+</div>
 
 <% if false %>
 <h2>Products</h2>
