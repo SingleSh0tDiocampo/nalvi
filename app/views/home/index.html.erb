@@ -4,7 +4,49 @@
       ShopifyApp.Bar.initialize({ title: "Home" });
     });
   </script>
+  
+  <script type="text/javascript">
+  ShopifyApp.ready(function(){
+    var new_value_count = 0;
+    $('#live_view_updater').on('click', function(){
+      if ($('#live_view_field_updater').val() !== '') {
+        $('#live_view_updater').text("Updating...");
+        new_value_count = $('#live_view_field_updater').val();
+        $(document).ajaxStop(function(){
+          $.ajax({
+            url: "https://api.myjson.com/bins/wkcpi",
+            type: "PUT",
+            data: '{"visitor":' + $('#live_view_field_updater').val() + '}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data, textStatus, jqXHR) {
+              $('#live_view_field_updater').val("");
+              alert("Successfully updated! Visitor count is now: " + new_value_count + "!");
+              $('#live_view_updater').text("Update");
+              new_value_count = 0;
+            }
+          });
+        });
+      } else { alert("Please enter a value first!");}
+    });
+  });
+  </script>
 <% end %>
+
+
+
+
+  <div>
+    Enter the new value here:
+    <input type="number" id="live_view_field_updater" placeholder="Enter any number" style="margin-top: 10px;"/>
+    <button id="live_view_updater" style="border: 0 !important;">Update</button>
+  </div>
+
+
+
+
+
+<% if false %>
 <h2>Products</h2>
 
 <ul>
@@ -25,4 +67,5 @@
   </ul>
 <% else %>
   <p>This app has not created any webhooks for this Shop. Add webhooks to your ShopifyApp initializer if you need webhooks</p>
+<% end %>
 <% end %>
